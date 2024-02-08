@@ -57,9 +57,6 @@ $_SESSION['code'] = $builder->getPhrase();
                         $builder->build(); 
                     ?>
                     <img class="mr-3 mb-2" src="<?php echo $builder->inline(); ?>">
-                    <a href="#" type="button" class="text-body">
-                        <i data-feather="refresh-ccw"></i>
-                    </a>
                 </div>
             </div>            
             
@@ -77,10 +74,5 @@ $_SESSION['code'] = $builder->getPhrase();
 
     <script src="./js/jquery/jquery-3.7.1.min.js"></script>
     <script src="./js/script.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace();
-    </script>
 </body>
 </html>
