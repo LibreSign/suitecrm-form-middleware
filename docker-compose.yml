@@ -1,0 +1,23 @@
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    volumes:
+      - .docker/nginx/:/etc/nginx/conf.d/ 
+      - ./public:/var/www/html/public
+
+  php:
+    build: .docker/php
+    volumes: 
+      - ./:/var/www/html
+    command: sh /var/www/html/entrypoint.sh
+    environment:
+      - ASSIGNED_USER_ID=${ASSIGNED_USER_ID:-fake_user_suitecrm}
+      - CAMPAIGN_ID=${CAMPAIGN_ID:-fake_campaign_suitecrm}
+      - URL_SUITECRM=${URL_SUITECRM:-http://yourdomain.com}
+      - HOST_UID=${HOST_UID:-1000}
+      - HOST_GID=${HOST_GID:-1000}
+      - TZ=${TZ:-America/Sao_Paulo}
+      - XDEBUG_CONFIG=${XDEBUG_CONFIG:-client_host=172.17.0.1 start_with_request=yes}
+      - XDEBUG_MODE=${XDEBUG_MODE:-debug}

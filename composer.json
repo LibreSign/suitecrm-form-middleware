@@ -1,0 +1,19 @@
+{
+    "name": "librecodecoop/recaptcha_form",
+    "description": "implement recaptcha in form valitation",
+    "type": "library",
+    "license": "AGPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Librecodecoop\\RecaptchaForm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "crisciany silva"
+        }
+    ],
+    "require": {
+        "gregwar/captcha": "^1.2"
+    }
+}
