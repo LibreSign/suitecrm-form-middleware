@@ -6,7 +6,6 @@ $("#form_request").submit(function(e){
     let phone = $('#phone_mobile').val();
     let longText = $('#description').val();
     let codeImg = $('#codeImg').val();
-    let codeType = $('#codeType').val();
 
     $.ajax({
         url: '/validate_fields.php',
@@ -20,7 +19,29 @@ $("#form_request").submit(function(e){
         },
         dataType: 'json',
         success: function(data){
+            if(data.error){
+                $('#message').show().text(data.message);
+                return
+            }
             window.top.location.href = "https://libresign.coop/thank-you-contact"
         },
     })
+});
+
+//reload captcha
+$(document).ready(function(){
+    showCaptcha();
+    $("#btnReload").click(function(){
+        showCaptcha();
+    });
+    
+    function showCaptcha(){
+        $.ajax({
+            type:'POST',
+            url:'/reload_captcha.php',
+            success:function(data){
+                $('#captcha').html(data)
+            }
+        });
+    }
 });

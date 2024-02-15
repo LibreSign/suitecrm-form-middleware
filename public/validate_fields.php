@@ -17,12 +17,15 @@ $phone = filter_input(INPUT_POST, 'phone');
 $longText = filter_input(INPUT_POST, 'longText');
 $codeImg = filter_input(INPUT_POST, 'codeImg');
 
+$response = [
+    'message' => '',
+    'error' => false
+];
+
 if( $builder->testPhrase($codeImg)){
     
-   // URL do destino
     $url = $_ENV['URL_SUITECRM'];
 
-    // Dados do formulário a serem enviados
     $formulario_data = array(
         'moduleDir' => 'Contacts',
         'assigned_user_id' => $_ENV['ASSIGNED_USER_ID'],
@@ -31,31 +34,30 @@ if( $builder->testPhrase($codeImg)){
         'email1' => $email,
         'phone_mobile' => $phone,
         'description' => $longText
-        // Adicione outros campos conforme necessário
     );
 
-    // Inicializa a sessão cURL
     $ch = curl_init($url);
 
-    // Configuração das opções da requisição
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Retorna o resultado da requisição como string
-    curl_setopt($ch, CURLOPT_POST, 1); // Define o método da requisição como POST
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $formulario_data); // Adiciona os dados do formulário à requisição
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $formulario_data);
 
-    // Executa a requisição
     $resposta = curl_exec($ch);
 
-    // Verifica por erros
     if (curl_errno($ch)) {
-        echo 'Erro cURL: ' . curl_error($ch);
+        $response = [
+            'message' => 'Sending Error',
+            'error' => true
+        ];
     }
 
-    // Fecha a sessão cURL
     curl_close($ch);
 
-    // Exibe a resposta do servidor
-    // var_dump($resposta);
-    echo "{}";
 }else{
-    echo "divergentes";
+    $response = [
+        'message' => 'Divergent Captcha',
+        'error' => true
+    ];
 }
+
+echo json_encode($response);
