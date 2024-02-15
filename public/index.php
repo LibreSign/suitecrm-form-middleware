@@ -1,27 +1,17 @@
-<?php
-include "../vendor/autoload.php";
-
-use Gregwar\Captcha\CaptchaBuilder;
-
-$builder = new CaptchaBuilder();
-$builder->build();
-session_start();
-$_SESSION['code'] = $builder->getPhrase(); 
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <title>Libresign</title>
 </head>
 <body>
     <div class="container">
         <h2 class="mb-5">Contact Us</h2>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;" id="message">
+        </div>
         <form id="form_request" name="WebToLeadForm">
             <div class="form-group">
                 <label for="name">Full Name*</label>
@@ -51,17 +41,21 @@ $_SESSION['code'] = $builder->getPhrase();
                     <input type="text" class="form-control" name="codeImg" id="codeImg"
                     placeholder="type the code in the side" required/>
                 </div>
-                <div class="col-4" id="codeRecaptcha">
-                    <?php 
-                        $builder = new CaptchaBuilder();
-                        $builder->build(); 
-                    ?>
-                    <img class="mr-3 mb-2" src="<?php echo $builder->inline(); ?>">
+                <div class="col-2" id="codeRecaptcha">
+                    <div>
+                        <div id="captcha">
+
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-2" id="btnReload" style="padding-top: 10px;">
+                    <i class="lni lni-reload"></i>
                 </div>
             </div>
+            <button class="btn btn-success mb-5 mt-2" type="submit">Send</button>
         </form>
     </div>
-
+    
     <script src="./js/jquery/jquery-3.7.1.min.js"></script>
     <script src="./js/script.js"></script>
 </body>
