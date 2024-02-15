@@ -17,7 +17,6 @@ $("#form_request").submit(function(e){
             phone: phone,
             longText: longText,
             codeImg: codeImg,
-            codeType: codeType
         },
         dataType: 'json',
         success: function(data){
@@ -25,9 +24,3 @@ $("#form_request").submit(function(e){
         },
     })
 });
-
-$("a").click(function(){
-    // alert("teste");
-    $("codeRecaptcha").load("/validate_fields.php");
-})
-
